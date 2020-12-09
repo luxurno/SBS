@@ -24,3 +24,5 @@ RUN apt update && apt install yarn -y
 WORKDIR ${PROJECT_ROOT}
 
 COPY ./ ${PROJECT_ROOT}
+
+RUN chown -R www-data:www-data /var/www

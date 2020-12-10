@@ -1,0 +1,30 @@
+body {
+    color: $white;
+}
+
+.container {
+    margin-top: 1rem;
+}
+
+.item-center {
+    display: flex;
+    align-items: center;
+}
+
+.city-lookup {
+    height: 6rem;
+    width: 40rem;
+    background: $indigo;
+}
+
+.search-component {
+    height: inherit;
+
+    div:nth-child(1) {
+        label {
+            position: absolute;
+            left: 3.5rem;
+            top: .5rem;
+        }
+    }
+}

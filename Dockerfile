@@ -15,11 +15,11 @@ RUN apt-get install -y \
       unzip
 RUN docker-php-ext-install zip
 
-# Install Yarn
-RUN apt install gnupg -y
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt update && apt install yarn -y
+# Install Npm
+RUN apt-get update
+RUN apt-get -y install curl gnupg
+RUN curl -sL https://deb.nodesource.com/setup_12.x  | bash -
+RUN apt-get -y install nodejs
 
 WORKDIR ${PROJECT_ROOT}
 

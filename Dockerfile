@@ -13,6 +13,7 @@ RUN apt-get install -y \
       zlib1g-dev \
       libzip-dev \
       unzip
+RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-install zip
 
 # Install Npm

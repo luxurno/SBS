@@ -27,8 +27,19 @@ services:
       - ./docker/usr/local/etc/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
     depends_on:
       - redis
+      - mysql
 
   redis:
     image: 'redis:6.0'
     hostname: redis
 
+  mysql:
+    image: 'mysql:5.7'
+    restart: 'always'
+    hostname: "mysql"
+    expose:
+      - '3306'
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}

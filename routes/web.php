@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\WeatherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('default');
 });
+Route::get('/api/cities', [CityController::class, 'getCities']);
+Route::get('/api/weather/{name}', [WeatherController::class, 'getWeatherByCity']);
+

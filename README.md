@@ -31,5 +31,7 @@ http://sbs.loc/
 #### Project URI (default)
 http://localhost/
 
+##### Depends on Project URI update your .env file
 
-
+#### Run initialize DB
+sh ./dev/initial-db.sh

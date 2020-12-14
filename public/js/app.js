@@ -104862,7 +104862,7 @@ var HumidityWeatherComponent = /*#__PURE__*/function (_Component) {
     value: function shouldComponentUpdate(nextProps, nextState) {
       var _nextProps$data;
 
-      if (((_nextProps$data = nextProps.data) === null || _nextProps$data === void 0 ? void 0 : _nextProps$data.response) !== null) {
+      if (nextProps.data !== null && (_nextProps$data = nextProps.data) !== null && _nextProps$data !== void 0 && _nextProps$data.response) {
         this.setState({
           data: {
             labels: [nextProps.data.response.map(function (element) {
@@ -104877,11 +104877,6 @@ var HumidityWeatherComponent = /*#__PURE__*/function (_Component) {
             }]
           }
         });
-        console.log('humidity');
-        console.log('nextProps.data.response');
-        console.log(nextProps.data.response);
-        console.log('this.props');
-        console.log(this.props);
         return true;
       }
 
@@ -104975,7 +104970,7 @@ var PressureWeatherComponent = /*#__PURE__*/function (_Component) {
     value: function shouldComponentUpdate(nextProps, nextState) {
       var _nextProps$data;
 
-      if (((_nextProps$data = nextProps.data) === null || _nextProps$data === void 0 ? void 0 : _nextProps$data.response) !== null) {
+      if (nextProps.data !== null && (_nextProps$data = nextProps.data) !== null && _nextProps$data !== void 0 && _nextProps$data.response) {
         this.setState({
           data: {
             labels: [nextProps.data.response.map(function (element) {
@@ -104990,11 +104985,6 @@ var PressureWeatherComponent = /*#__PURE__*/function (_Component) {
             }]
           }
         });
-        console.log('pressure');
-        console.log('nextProps.data.response');
-        console.log(nextProps.data.response);
-        console.log('this.props');
-        console.log(this.props);
         return true;
       }
 
@@ -105089,16 +105079,7 @@ var TemperatureWeatherComponent = /*#__PURE__*/function (_Component) {
     value: function shouldComponentUpdate(nextProps, nextState) {
       var _nextProps$data;
 
-      console.log('nextProps');
-      console.log(nextProps);
-      console.log('this.props');
-      console.log(this.props);
-      console.log('this.nextState');
-      console.log(this.nextState);
-      console.log('this.state');
-      console.log(this.state);
-
-      if (((_nextProps$data = nextProps.data) === null || _nextProps$data === void 0 ? void 0 : _nextProps$data.response) !== null) {
+      if (nextProps.data !== null && (_nextProps$data = nextProps.data) !== null && _nextProps$data !== void 0 && _nextProps$data.response) {
         this.setState({
           data: {
             labels: [nextProps.data.response.map(function (element) {
@@ -105113,11 +105094,6 @@ var TemperatureWeatherComponent = /*#__PURE__*/function (_Component) {
             }]
           }
         });
-        console.log('temperature');
-        console.log('nextProps.data.response');
-        console.log(nextProps.data.response);
-        console.log('this.props');
-        console.log(this.props);
         return true;
       }
 
@@ -105227,7 +105203,12 @@ var WeatherComponent = /*#__PURE__*/function (_PureComponent) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                if (!(this.props.data.city.length !== 0)) {
+                  _context.next = 3;
+                  break;
+                }
+
+                _context.next = 3;
                 return axios.get('/api/weather/' + this.props.data.city).then(function (res) {
                   var response = res.data;
 
@@ -105236,7 +105217,7 @@ var WeatherComponent = /*#__PURE__*/function (_PureComponent) {
                   });
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }

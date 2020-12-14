@@ -20,7 +20,7 @@ export default class TemperatureWeatherComponent extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.data?.response !== null) {
+        if (nextProps.data !== null && nextProps.data?.response) {
             this.setState({
                 data: {
                     labels: [nextProps.data.response.map((element) => {

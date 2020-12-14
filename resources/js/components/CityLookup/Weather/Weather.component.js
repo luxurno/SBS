@@ -17,12 +17,14 @@ export default class WeatherComponent extends PureComponent {
     }
 
     async getWeatherByCity() {
-        await axios.get('/api/weather/' + this.props.data.city).then(res => {
-            const response = res.data;
-            this.setState({
-                response: response
+        if (this.props.data.city.length !== 0) {
+            await axios.get('/api/weather/' + this.props.data.city).then(res => {
+                const response = res.data;
+                this.setState({
+                    response: response
+                });
             });
-        });
+        }
     }
 
     render() {

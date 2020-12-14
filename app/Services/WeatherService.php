@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Services;
 
-use App\API\ApiClient;
-use App\API\Exception\BadResponseException;
+use App\API\WeatherApiClient;
 use App\Builder\WeatherBuilder;
+use App\Chain\ChainFacade;
 use App\Core\Filter\UriFilter;
 use App\Models\City;
 use App\VO\Collection\WeatherVOCollection;
@@ -14,18 +14,21 @@ use Psr\Log\InvalidArgumentException;
 
 class WeatherService
 {
-    private ApiClient $apiClient;
+    private ChainFacade $chainFacade;
     private UriFilter $uriFilter;
+    private WeatherApiClient $weatherApiClient;
     private WeatherBuilder $weatherBuilder;
 
     public function __construct(
-        ApiClient $apiClient,
+        ChainFacade $chainFacade,
         UriFilter $uriFilter,
+        WeatherApiClient $weatherApiClient,
         WeatherBuilder $weatherBuilder
     )
     {
-        $this->apiClient = $apiClient;
+        $this->chainFacade = $chainFacade;
         $this->uriFilter = $uriFilter;
+        $this->weatherApiClient = $weatherApiClient;
         $this->weatherBuilder = $weatherBuilder;
     }
 
@@ -37,12 +40,9 @@ class WeatherService
         if ($user->all() === []) {
             throw new InvalidArgumentException('City not found');
         }
-
-        try {
-            $response = $this->apiClient->forecast($name);
-        } catch (BadResponseException $e) {
-            throw $e;
-        }
+        $response = $this->chainFacade->getForecastFor([
+            'q' => $name,
+        ]);
 
         return $this->weatherBuilder->build($response);
     }

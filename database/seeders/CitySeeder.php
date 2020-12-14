@@ -16,15 +16,15 @@ class CitySeeder extends Seeder
     public function run()
     {
         DB::table('cities')->insert([
-            'name' => 'new york',
+            'name' => 'London',
             'created_at' => new DateTime('now')
         ]);
         DB::table('cities')->insert([
-            'name' => 'washington',
+            'name' => 'New York',
             'created_at' => new DateTime('now')
         ]);
         DB::table('cities')->insert([
-            'name' => 'london',
+            'name' => 'Washington',
             'created_at' => new DateTime('now')
         ]);
     }

@@ -8,6 +8,6 @@ class UriFilter
 {
     public function filter(string $string): string
     {
-        return rawurlencode(strtolower($string));
+        return urldecode($string);
     }
 }

@@ -19,6 +19,11 @@ services:
       context: .
       args:
         PROJECT_DIR: /var/www
+    environment:
+      REDIS_CLIENT: ${REDIS_CLIENT}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
     ports:
       - "8080:8080"
     volumes:
@@ -32,13 +37,13 @@ services:
   redis:
     image: 'redis:6.0'
     hostname: redis
+    ports:
+      - '6379:6379'
 
   mysql:
     image: 'mysql:5.7'
     restart: 'always'
     hostname: "mysql"
-    expose:
-      - '3306'
     ports:
       - '3306:3306'
     environment:

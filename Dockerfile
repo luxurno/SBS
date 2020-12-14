@@ -16,6 +16,10 @@ RUN apt-get install -y \
 RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-install zip
 
+# Install pecl redis extension
+RUN pecl install redis-5.3.2 \
+    && docker-php-ext-enable redis
+
 # Install Npm
 RUN apt-get update
 RUN apt-get -y install curl gnupg

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {HeadersEnum} from "../Core/Text/Enum/Headers.enum.ts";
 import {ButtonEnum} from "../Core/Text/Enum/Button.enum.ts";
-import SearchComponent from "../Core/Search.component";
+import SearchComponent from "./Search/Search.component";
+import WeatherComponent from "./Weather/Weather.component";
 
 export default class CityLookupComponent extends Component {
     constructor(props) {
@@ -10,22 +11,23 @@ export default class CityLookupComponent extends Component {
         this.state = {
             title: HeadersEnum.CITY_SEARCH,
             button: ButtonEnum.SEARCH,
-            name: "",
-            showWeather: false,
+            city: "",
+            showWeather: false
         };
     }
 
-    citySearchCallback = (dataFromChild) => {
-        this.setState({
-            name: dataFromChild.name,
-            showWeather: dataFromChild.showWeather
+    callbackCitySearch = async (dataFromChild) => {
+        await this.setState({
+            city: dataFromChild.city,
+            showWeather: dataFromChild.showWeather,
         });
     };
 
     render() {
         return(
-            <div className={'city-lookup'}>
-                <SearchComponent data={this.state} callbackFromParent={this.citySearchCallback} />
+            <div className={'row justify-content-center component-city-lookup'}>
+                <SearchComponent data={this.state} callbackFromParent={this.callbackCitySearch} />
+                <WeatherComponent data={this.state} />
             </div>
         );
     }

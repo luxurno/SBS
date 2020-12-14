@@ -3,7 +3,14 @@ body {
 }
 
 .container {
-    margin-top: 1rem;
+    height: 100vh;
+    width: 100vw;
+}
+
+.customize-button {
+    button {
+        background-color: #4db091;
+    }
 }
 
 .item-center {
@@ -11,20 +18,40 @@ body {
     align-items: center;
 }
 
-.city-lookup {
-    height: 6rem;
-    width: 40rem;
-    background: $indigo;
+.component-weather {
+    width: 50vw;
+
+    &-item {
+        background: #a4dbca;
+        margin: 1.5rem 0;
+        border-radius: 1rem;
+        padding: 1.5rem;
+
+        .chart-container {
+            height: 20rem;
+        }
+    }
 }
 
-.search-component {
-    height: inherit;
+.component-search {
+    height: 6rem;
+    width: 50vw;
+    background: #a4dbca;
+    margin: 1.5rem 0;
+    border-radius: 1rem;
+    padding: .5rem;
 
     div:nth-child(1) {
         label {
             position: absolute;
-            left: 3.5rem;
-            top: .5rem;
+            left: 8.5rem;
+            top: 0;
+        }
+    }
+
+    div:nth-child(2) {
+        button {
+            width: 7rem;
         }
     }
 }

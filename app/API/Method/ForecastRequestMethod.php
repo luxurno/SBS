@@ -18,7 +18,6 @@ class ForecastRequestMethod implements MethodInterface
         return sprintf(
             self::ENDPOINT,
             $params['q'],
-            'fbce7343b4026095f2f32738a42b1bce',
         );
     }
 

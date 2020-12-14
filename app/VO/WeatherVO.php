@@ -4,17 +4,17 @@ declare(strict_types = 1);
 
 namespace App\VO;
 
-use DateTimeImmutable;
+use Carbon\Carbon;
 
 class WeatherVO extends AbstractVOModel
 {
-    private DateTimeImmutable $date;
+    private Carbon $date;
     private float $temp;
     private int $pressure;
     private int $humidity;
 
     public function __construct(
-        DateTimeImmutable $date,
+        Carbon $date,
         float $temp,
         int $pressure,
         int $humidity
@@ -26,7 +26,7 @@ class WeatherVO extends AbstractVOModel
         $this->humidity = $humidity;
     }
 
-    public function getDate(): DateTimeImmutable
+    public function getDate(): Carbon
     {
         return $this->date;
     }

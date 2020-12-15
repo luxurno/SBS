@@ -13,20 +13,32 @@ export default class WeatherComponent extends Component {
         this.state = {
             city: "",
             response: null,
+            makeResponse: true,
         };
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        this.getWeatherByCity().then(r => {});
+    async shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.data.city !== this.props.data.city && this.state.makeResponse === true) {
+            this.getWeatherByCity(nextProps).then(r => {
+                this.setState({
+                    makeResponse: true,
+                });
+            });
+
+            return true;
+        }
+
+        return false;
     }
 
-    async getWeatherByCity() {
-        if (this.citiesStorageService$.getCities().includes(this.props.data.city) && this.state.response === null) {
-            await axios.get('/api/weather/' + this.props.data.city).then(res => {
+    async getWeatherByCity(nextProps) {
+        if (this.citiesStorageService$.getCities().includes(nextProps.data.city)) {
+            await axios.get('/api/weather/' + nextProps.data.city).then(res => {
                 const response = res.data;
                 this.setState({
-                    city: this.props.data.city,
+                    city: nextProps.data.city,
                     response: response,
+                    makeResponse: false,
                 });
             });
         }

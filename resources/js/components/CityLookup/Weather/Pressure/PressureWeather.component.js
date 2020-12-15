@@ -6,6 +6,7 @@ export default class PressureWeatherComponent extends Component {
         super(props);
 
         this.state = {
+            city: "",
             data: {
                 labels: [],
                 datasets: [{
@@ -21,27 +22,28 @@ export default class PressureWeatherComponent extends Component {
     }
 
     async parseDataFromResponse() {
-        if (this.props.data.response !== null && this.state.parsedResponse === false) {
-            await this.setState({
-                data: {
-                    labels: [this.props.data.response.map((element) => {
-                        return element.date
+        await this.setState({
+            city: this.props.data.city,
+            data: {
+                labels: [this.props.data.response.map((element) => {
+                    return element.date
+                })],
+                datasets: [{
+                    label: 'Dataset #1',
+                    data: [this.props.data.response.map((element) => {
+                        return element['value'] = element.pressure;
                     })],
-                    datasets: [{
-                        label: 'Dataset #1',
-                        data: [this.props.data.response.map((element) => {
-                            return element['value'] = element.pressure;
-                        })],
-                        backgroundColor: '#a4dbca'
-                    }]
-                },
-                parsedResponse: true,
-            });
-        }
+                    backgroundColor: '#a4dbca'
+                }]
+            },
+            parsedResponse: true,
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
-        this.parseDataFromResponse().then(r => {});
+        if (this.props.data.city !== prevProps.data.city) {
+            this.parseDataFromResponse().then(r => {});
+        }
     }
 
     render() {

@@ -104852,6 +104852,7 @@ var HumidityWeatherComponent = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
+      city: "",
       data: {
         labels: [],
         datasets: [{
@@ -104875,13 +104876,9 @@ var HumidityWeatherComponent = /*#__PURE__*/function (_Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(this.props.data.response !== null && this.state.parsedResponse === false)) {
-                  _context.next = 3;
-                  break;
-                }
-
-                _context.next = 3;
+                _context.next = 2;
                 return this.setState({
+                  city: this.props.data.city,
                   data: {
                     labels: [this.props.data.response.map(function (element) {
                       return element.date;
@@ -104897,7 +104894,7 @@ var HumidityWeatherComponent = /*#__PURE__*/function (_Component) {
                   parsedResponse: true
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -104914,7 +104911,9 @@ var HumidityWeatherComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      this.parseDataFromResponse().then(function (r) {});
+      if (this.props.data.city !== prevProps.data.city) {
+        this.parseDataFromResponse().then(function (r) {});
+      }
     }
   }, {
     key: "render",
@@ -104994,6 +104993,7 @@ var PressureWeatherComponent = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
+      city: "",
       data: {
         labels: [],
         datasets: [{
@@ -105017,13 +105017,9 @@ var PressureWeatherComponent = /*#__PURE__*/function (_Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(this.props.data.response !== null && this.state.parsedResponse === false)) {
-                  _context.next = 3;
-                  break;
-                }
-
-                _context.next = 3;
+                _context.next = 2;
                 return this.setState({
+                  city: this.props.data.city,
                   data: {
                     labels: [this.props.data.response.map(function (element) {
                       return element.date;
@@ -105039,7 +105035,7 @@ var PressureWeatherComponent = /*#__PURE__*/function (_Component) {
                   parsedResponse: true
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -105056,7 +105052,9 @@ var PressureWeatherComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      this.parseDataFromResponse().then(function (r) {});
+      if (this.props.data.city !== prevProps.data.city) {
+        this.parseDataFromResponse().then(function (r) {});
+      }
     }
   }, {
     key: "render",
@@ -105136,6 +105134,7 @@ var TemperatureWeatherComponent = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
+      city: "",
       data: {
         labels: [],
         datasets: [{
@@ -105159,13 +105158,9 @@ var TemperatureWeatherComponent = /*#__PURE__*/function (_Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(this.props.data.response !== null && this.state.parsedResponse === false)) {
-                  _context.next = 3;
-                  break;
-                }
-
-                _context.next = 3;
+                _context.next = 2;
                 return this.setState({
+                  city: this.props.data.city,
                   data: {
                     labels: [this.props.data.response.map(function (element) {
                       return element.date;
@@ -105181,7 +105176,7 @@ var TemperatureWeatherComponent = /*#__PURE__*/function (_Component) {
                   parsedResponse: true
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -105198,7 +105193,9 @@ var TemperatureWeatherComponent = /*#__PURE__*/function (_Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      this.parseDataFromResponse().then(function (r) {});
+      if (this.props.data.city !== prevProps.data.city) {
+        this.parseDataFromResponse().then(function (r) {});
+      }
     }
   }, {
     key: "render",
@@ -105287,42 +105284,38 @@ var WeatherComponent = /*#__PURE__*/function (_Component) {
     _this.citiesStorageService$ = new _Core_Service_CitiesStorage_service_ts__WEBPACK_IMPORTED_MODULE_3__["CitiesStorageService"]();
     _this.state = {
       city: "",
-      response: null
+      response: null,
+      makeResponse: true
     };
     return _this;
   }
 
   _createClass(WeatherComponent, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
-      this.getWeatherByCity().then(function (r) {});
-    }
-  }, {
-    key: "getWeatherByCity",
+    key: "shouldComponentUpdate",
     value: function () {
-      var _getWeatherByCity = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var _shouldComponentUpdate = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(nextProps, nextState) {
         var _this2 = this;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(this.citiesStorageService$.getCities().includes(this.props.data.city) && this.state.response === null)) {
+                if (!(nextProps.data.city !== this.props.data.city && this.state.makeResponse === true)) {
                   _context.next = 3;
                   break;
                 }
 
-                _context.next = 3;
-                return axios.get('/api/weather/' + this.props.data.city).then(function (res) {
-                  var response = res.data;
-
+                this.getWeatherByCity(nextProps).then(function (r) {
                   _this2.setState({
-                    city: _this2.props.data.city,
-                    response: response
+                    makeResponse: true
                   });
                 });
+                return _context.abrupt("return", true);
 
               case 3:
+                return _context.abrupt("return", false);
+
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -105330,7 +105323,47 @@ var WeatherComponent = /*#__PURE__*/function (_Component) {
         }, _callee, this);
       }));
 
-      function getWeatherByCity() {
+      function shouldComponentUpdate(_x, _x2) {
+        return _shouldComponentUpdate.apply(this, arguments);
+      }
+
+      return shouldComponentUpdate;
+    }()
+  }, {
+    key: "getWeatherByCity",
+    value: function () {
+      var _getWeatherByCity = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(nextProps) {
+        var _this3 = this;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!this.citiesStorageService$.getCities().includes(nextProps.data.city)) {
+                  _context2.next = 3;
+                  break;
+                }
+
+                _context2.next = 3;
+                return axios.get('/api/weather/' + nextProps.data.city).then(function (res) {
+                  var response = res.data;
+
+                  _this3.setState({
+                    city: nextProps.data.city,
+                    response: response,
+                    makeResponse: false
+                  });
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function getWeatherByCity(_x3) {
         return _getWeatherByCity.apply(this, arguments);
       }
 

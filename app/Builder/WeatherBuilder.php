@@ -28,7 +28,7 @@ class WeatherBuilder
                 foreach ($response[self::RESPONSE_KEY] as $key => $item) {
                     if ($this->dayValidator->validate($item['dt_txt'], $days)) {
                         $collection->add(new WeatherVO(
-                            Carbon::parse($item['dt_txt']),
+                            Carbon::parse($item['dt_txt'])->format('Y-m-d H:i:s'),
                             $item['main']['temp'],
                             $item['main']['pressure'],
                             $item['main']['humidity'],

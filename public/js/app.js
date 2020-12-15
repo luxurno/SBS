@@ -104804,10 +104804,18 @@ var SearchComponent = /*#__PURE__*/function (_Component) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HumidityWeatherComponent; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Core/Chart/Line/LineChart.module */ "./resources/js/components/Core/Chart/Line/LineChart.module.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Core/Chart/Line/LineChart.module */ "./resources/js/components/Core/Chart/Line/LineChart.module.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -104845,49 +104853,75 @@ var HumidityWeatherComponent = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = {
       data: {
-        labels: ['A', 'B', 'C', 'D', 'E'],
+        labels: [],
         datasets: [{
-          label: 'Dataset #3',
-          data: [1, 2, 3, 4, 5],
+          label: 'Dataset #1',
+          data: [],
           backgroundColor: '#a4dbca'
         }]
       },
-      title: 'Humidity'
+      title: 'Humidity',
+      response: null,
+      parsedResponse: false
     };
     return _this;
   }
 
   _createClass(HumidityWeatherComponent, [{
-    key: "shouldComponentUpdate",
-    value: function shouldComponentUpdate(nextProps, nextState) {
-      var _nextProps$data;
+    key: "parseDataFromResponse",
+    value: function () {
+      var _parseDataFromResponse = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(this.props.data.response !== null && this.state.parsedResponse === false)) {
+                  _context.next = 3;
+                  break;
+                }
 
-      if (nextProps.data !== null && (_nextProps$data = nextProps.data) !== null && _nextProps$data !== void 0 && _nextProps$data.response) {
-        this.setState({
-          data: {
-            labels: [nextProps.data.response.map(function (element) {
-              return element.date;
-            })],
-            datasets: [{
-              label: 'Dataset #3',
-              data: [nextProps.data.response.map(function (element) {
-                return element['value'] = element.humidity;
-              })],
-              backgroundColor: '#a4dbca'
-            }]
+                _context.next = 3;
+                return this.setState({
+                  data: {
+                    labels: [this.props.data.response.map(function (element) {
+                      return element.date;
+                    })],
+                    datasets: [{
+                      label: 'Dataset #1',
+                      data: [this.props.data.response.map(function (element) {
+                        return element['value'] = element.humidity;
+                      })],
+                      backgroundColor: '#a4dbca'
+                    }]
+                  },
+                  parsedResponse: true
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
           }
-        });
-        return true;
+        }, _callee, this);
+      }));
+
+      function parseDataFromResponse() {
+        return _parseDataFromResponse.apply(this, arguments);
       }
 
-      return false;
+      return parseDataFromResponse;
+    }()
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      this.parseDataFromResponse().then(function (r) {});
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: 'component-weather-item'
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_2__["default"], {
         data: this.state.data,
         title: this.state.title,
         color: "#70CAD1"
@@ -104896,7 +104930,7 @@ var HumidityWeatherComponent = /*#__PURE__*/function (_Component) {
   }]);
 
   return HumidityWeatherComponent;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 
 
@@ -104912,10 +104946,18 @@ var HumidityWeatherComponent = /*#__PURE__*/function (_Component) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PressureWeatherComponent; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Core/Chart/Line/LineChart.module */ "./resources/js/components/Core/Chart/Line/LineChart.module.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Core/Chart/Line/LineChart.module */ "./resources/js/components/Core/Chart/Line/LineChart.module.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -104953,49 +104995,75 @@ var PressureWeatherComponent = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = {
       data: {
-        labels: ['A', 'B', 'C', 'D', 'E'],
+        labels: [],
         datasets: [{
-          label: 'Dataset #2',
-          data: [1, 2, 3, 4, 5],
+          label: 'Dataset #1',
+          data: [],
           backgroundColor: '#a4dbca'
         }]
       },
-      title: 'Pressure'
+      title: 'Pressure',
+      response: null,
+      parsedResponse: false
     };
     return _this;
   }
 
   _createClass(PressureWeatherComponent, [{
-    key: "shouldComponentUpdate",
-    value: function shouldComponentUpdate(nextProps, nextState) {
-      var _nextProps$data;
+    key: "parseDataFromResponse",
+    value: function () {
+      var _parseDataFromResponse = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(this.props.data.response !== null && this.state.parsedResponse === false)) {
+                  _context.next = 3;
+                  break;
+                }
 
-      if (nextProps.data !== null && (_nextProps$data = nextProps.data) !== null && _nextProps$data !== void 0 && _nextProps$data.response) {
-        this.setState({
-          data: {
-            labels: [nextProps.data.response.map(function (element) {
-              return element.date;
-            })],
-            datasets: [{
-              label: 'Dataset #2',
-              data: [nextProps.data.response.map(function (element) {
-                return element['value'] = element.pressure;
-              })],
-              backgroundColor: '#a4dbca'
-            }]
+                _context.next = 3;
+                return this.setState({
+                  data: {
+                    labels: [this.props.data.response.map(function (element) {
+                      return element.date;
+                    })],
+                    datasets: [{
+                      label: 'Dataset #1',
+                      data: [this.props.data.response.map(function (element) {
+                        return element['value'] = element.pressure;
+                      })],
+                      backgroundColor: '#a4dbca'
+                    }]
+                  },
+                  parsedResponse: true
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
           }
-        });
-        return true;
+        }, _callee, this);
+      }));
+
+      function parseDataFromResponse() {
+        return _parseDataFromResponse.apply(this, arguments);
       }
 
-      return false;
+      return parseDataFromResponse;
+    }()
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      this.parseDataFromResponse().then(function (r) {});
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: 'component-weather-item'
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_2__["default"], {
         data: this.state.data,
         title: this.state.title,
         color: "#70CAD1"
@@ -105004,7 +105072,7 @@ var PressureWeatherComponent = /*#__PURE__*/function (_Component) {
   }]);
 
   return PressureWeatherComponent;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 
 
@@ -105020,10 +105088,18 @@ var PressureWeatherComponent = /*#__PURE__*/function (_Component) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TemperatureWeatherComponent; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Core/Chart/Line/LineChart.module */ "./resources/js/components/Core/Chart/Line/LineChart.module.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Core/Chart/Line/LineChart.module */ "./resources/js/components/Core/Chart/Line/LineChart.module.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -105061,50 +105137,75 @@ var TemperatureWeatherComponent = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = {
       data: {
-        labels: ['A', 'B', 'C', 'D', 'E'],
+        labels: [],
         datasets: [{
           label: 'Dataset #1',
-          data: [1, 2, 3, 4, 5],
+          data: [],
           backgroundColor: '#a4dbca'
         }]
       },
       title: 'Temperature',
-      response: null
+      response: null,
+      parsedResponse: false
     };
     return _this;
   }
 
   _createClass(TemperatureWeatherComponent, [{
-    key: "shouldComponentUpdate",
-    value: function shouldComponentUpdate(nextProps, nextState) {
-      var _nextProps$data;
+    key: "parseDataFromResponse",
+    value: function () {
+      var _parseDataFromResponse = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(this.props.data.response !== null && this.state.parsedResponse === false)) {
+                  _context.next = 3;
+                  break;
+                }
 
-      if (nextProps.data !== null && (_nextProps$data = nextProps.data) !== null && _nextProps$data !== void 0 && _nextProps$data.response) {
-        this.setState({
-          data: {
-            labels: [nextProps.data.response.map(function (element) {
-              return element.date;
-            })],
-            datasets: [{
-              label: 'Dataset #1',
-              data: [nextProps.data.response.map(function (element) {
-                return element['value'] = element.temp;
-              })],
-              backgroundColor: '#a4dbca'
-            }]
+                _context.next = 3;
+                return this.setState({
+                  data: {
+                    labels: [this.props.data.response.map(function (element) {
+                      return element.date;
+                    })],
+                    datasets: [{
+                      label: 'Dataset #1',
+                      data: [this.props.data.response.map(function (element) {
+                        return element['value'] = element.temp;
+                      })],
+                      backgroundColor: '#a4dbca'
+                    }]
+                  },
+                  parsedResponse: true
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
           }
-        });
-        return true;
+        }, _callee, this);
+      }));
+
+      function parseDataFromResponse() {
+        return _parseDataFromResponse.apply(this, arguments);
       }
 
-      return false;
+      return parseDataFromResponse;
+    }()
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      this.parseDataFromResponse().then(function (r) {});
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: 'component-weather-item'
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Core_Chart_Line_LineChart_module__WEBPACK_IMPORTED_MODULE_2__["default"], {
         data: this.state.data,
         title: this.state.title,
         color: "#70CAD1"
@@ -105113,7 +105214,7 @@ var TemperatureWeatherComponent = /*#__PURE__*/function (_Component) {
   }]);
 
   return TemperatureWeatherComponent;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 
 
@@ -105172,8 +105273,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var WeatherComponent = /*#__PURE__*/function (_PureComponent) {
-  _inherits(WeatherComponent, _PureComponent);
+var WeatherComponent = /*#__PURE__*/function (_Component) {
+  _inherits(WeatherComponent, _Component);
 
   var _super = _createSuper(WeatherComponent);
 
@@ -105185,15 +105286,18 @@ var WeatherComponent = /*#__PURE__*/function (_PureComponent) {
     _this = _super.call(this, props);
     _this.citiesStorageService$ = new _Core_Service_CitiesStorage_service_ts__WEBPACK_IMPORTED_MODULE_3__["CitiesStorageService"]();
     _this.state = {
+      city: "",
       response: null
     };
-
-    _this.getWeatherByCity().then(function (r) {});
-
     return _this;
   }
 
   _createClass(WeatherComponent, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      this.getWeatherByCity().then(function (r) {});
+    }
+  }, {
     key: "getWeatherByCity",
     value: function () {
       var _getWeatherByCity = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -105203,7 +105307,7 @@ var WeatherComponent = /*#__PURE__*/function (_PureComponent) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(this.props.data.city.length !== 0)) {
+                if (!(this.citiesStorageService$.getCities().includes(this.props.data.city) && this.state.response === null)) {
                   _context.next = 3;
                   break;
                 }
@@ -105213,6 +105317,7 @@ var WeatherComponent = /*#__PURE__*/function (_PureComponent) {
                   var response = res.data;
 
                   _this2.setState({
+                    city: _this2.props.data.city,
                     response: response
                   });
                 });
@@ -105241,20 +105346,17 @@ var WeatherComponent = /*#__PURE__*/function (_PureComponent) {
           display: showWeather ? 'block' : 'none'
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Temperature_TemperatureWeather_component__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        data: this.props,
-        response: this.state.response
+        data: this.state
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Humidity_HumidityWeather_component__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        data: this.props,
-        response: this.state.response
+        data: this.state
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Pressure_PressureWeather_component__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        data: this.props,
-        response: this.state.response
+        data: this.state
       }));
     }
   }]);
 
   return WeatherComponent;
-}(react__WEBPACK_IMPORTED_MODULE_1__["PureComponent"]);
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 
 
@@ -105317,14 +105419,12 @@ var LineChart = /*#__PURE__*/function (_Component) {
   _createClass(LineChart, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      var _this$props$data;
-
-      if (this.props.data !== null && ((_this$props$data = this.props.data) === null || _this$props$data === void 0 ? void 0 : _this$props$data.response) !== null) {
-        this.myChart.data.labels = this.props.data.labels.map(function (d) {
-          return d.time;
+      if (this.props.data.labels.length > 0) {
+        this.myChart.data.labels = this.props.data.labels[0].map(function (d) {
+          return d;
         });
-        this.myChart.data.datasets[0].data = this.props.data.datasets[0].data.map(function (d) {
-          return d.value;
+        this.myChart.data.datasets[0].data = this.props.data.datasets[0].data[0].map(function (d) {
+          return d;
         });
         this.myChart.update();
       }
@@ -105333,32 +105433,22 @@ var LineChart = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.myChart = new chart_js__WEBPACK_IMPORTED_MODULE_1___default.a(this.chartRef.current, {
-        type: 'bar',
+        type: 'line',
         options: {
-          maintainAspectRatio: false,
           scales: {
             yAxes: [{
-              stacked: true,
-              gridLines: {
-                display: true,
-                color: "rgba(255,99,132,0.2)"
-              }
-            }],
-            xAxes: [{
-              gridLines: {
-                display: false
-              }
+              stacked: true
             }]
           }
         },
         data: {
           labels: this.props.data.labels.map(function (d) {
-            return d.time;
+            return d;
           }),
           datasets: [{
             label: this.props.title,
             data: this.props.data.datasets[0].data.map(function (d) {
-              return d.value;
+              return d;
             }),
             fill: 'none',
             backgroundColor: this.props.color,

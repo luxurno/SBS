@@ -4,17 +4,15 @@ declare(strict_types = 1);
 
 namespace App\VO;
 
-use Carbon\Carbon;
-
 class WeatherVO extends AbstractVOModel
 {
-    private Carbon $date;
+    private string $date;
     private float $temp;
     private int $pressure;
     private int $humidity;
 
     public function __construct(
-        Carbon $date,
+        string $date,
         float $temp,
         int $pressure,
         int $humidity
@@ -26,7 +24,7 @@ class WeatherVO extends AbstractVOModel
         $this->humidity = $humidity;
     }
 
-    public function getDate(): Carbon
+    public function getDate(): string
     {
         return $this->date;
     }

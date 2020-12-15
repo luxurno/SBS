@@ -9,38 +9,28 @@ export default class LineChart extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.data !== null && this.props.data?.response !== null) {
-            this.myChart.data.labels = this.props.data.labels.map(d => d.time);
-            this.myChart.data.datasets[0].data = this.props.data.datasets[0].data.map(d => d.value);
+        if (this.props.data.labels.length > 0) {
+            this.myChart.data.labels = this.props.data.labels[0].map(d => d);
+            this.myChart.data.datasets[0].data = this.props.data.datasets[0].data[0].map(d => d);
             this.myChart.update();
         }
     }
 
     componentDidMount() {
         this.myChart = new Chart(this.chartRef.current, {
-            type: 'bar',
+            type: 'line',
             options: {
-                maintainAspectRatio: false,
                 scales: {
                     yAxes: [{
-                        stacked: true,
-                        gridLines: {
-                            display: true,
-                            color: "rgba(255,99,132,0.2)"
-                        }
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            display: false
-                        }
+                        stacked: true
                     }]
                 }
             },
             data: {
-                labels: this.props.data.labels.map(d => d.time),
+                labels: this.props.data.labels.map(d => d),
                 datasets: [{
                     label: this.props.title,
-                    data: this.props.data.datasets[0].data.map(d => d.value),
+                    data: this.props.data.datasets[0].data.map(d => d),
                     fill: 'none',
                     backgroundColor: this.props.color,
                     pointRadius: 2,

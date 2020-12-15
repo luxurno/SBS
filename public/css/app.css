@@ -10928,6 +10928,7 @@ body {
   margin: 1.5rem 0;
   border-radius: 1rem;
   padding: 1.5rem;
+  padding-bottom: 4.5rem;
 }
 
 .component-weather-item .chart-container {

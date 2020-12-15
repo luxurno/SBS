@@ -7,38 +7,41 @@ export default class HumidityWeatherComponent extends Component {
 
         this.state = {
             data: {
-                labels: ['A', 'B', 'C', 'D', 'E'],
+                labels: [],
                 datasets: [{
-                    label: 'Dataset #3',
-                    data: [1, 2, 3, 4, 5],
+                    label: 'Dataset #1',
+                    data: [],
                     backgroundColor: '#a4dbca'
                 }]
             },
             title: 'Humidity',
+            response: null,
+            parsedResponse: false,
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.data !== null && nextProps.data?.response) {
-            this.setState({
+    async parseDataFromResponse() {
+        if (this.props.data.response !== null && this.state.parsedResponse === false) {
+            await this.setState({
                 data: {
-                    labels: [nextProps.data.response.map((element) => {
+                    labels: [this.props.data.response.map((element) => {
                         return element.date
                     })],
                     datasets: [{
-                        label: 'Dataset #3',
-                        data: [nextProps.data.response.map((element) => {
+                        label: 'Dataset #1',
+                        data: [this.props.data.response.map((element) => {
                             return element['value'] = element.humidity;
                         })],
                         backgroundColor: '#a4dbca'
                     }]
-                }
+                },
+                parsedResponse: true,
             });
-
-            return true;
         }
+    }
 
-        return false;
+    componentDidUpdate(prevProps, prevState) {
+        this.parseDataFromResponse().then(r => {});
     }
 
     render() {

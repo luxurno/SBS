@@ -35,3 +35,7 @@ http://localhost/
 
 #### Run initialize DB
 sh ./dev/initial-db.sh
+
+###
+###### Disclaimer
+Copyright 2021 © All rights reserved by Luxurno Marcin Szostak.
